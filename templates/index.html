@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>欢迎来到Whim首页</title>
+</head>
+<body>
+<div class="container">
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert">
+                    <p>{{ message }}</p>
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+    <div class="mainContent">
+        <h1>Welcome to Whim</h1>
+        <p>
+            Whim的主旨是使用音乐进行社交活动。音乐是灵魂上的交流，意义与语言不同。</br>
+            此应用鼓励使用音乐进行社交，鼓励使用音乐发展出自己的交流方式；对应地文字可交流的地方将非常受限。</br>
+            实际上笔者也未必具有相应的音乐能力去在此app上进行交流。若感觉难以沟通，可利用个人主页的介绍功能在其它地方进行交流。</br>
+            主要功能：音乐社交、写bio。在这个音乐世界里，两者所能提供的信息都将非常重要
+        </p>
+        <div class="nav">
+                <ul>
+                    {% if session['login'] == True %}
+                        <li role="presentation"><a href="logout" id="logout">Logout</a>
+                        </li>
+                        <li role="presentation"  id="dash_button"><a href="showDash">Dashboard</a>
+                        </li>
+                    {% else %}
+                        <li role="presentation" id="signin"><a href="showSignIn">Sign In</a>
+                        </li>
+                        <li role="presentation" id="button"><a href="showSignUp">Sign Up</a>
+                        </li>
+                    {% endif %}
+                </ul>
+        </div>
+    </div>
+</body>
+    <footer class="footer">
+        <p>&copy; Whim test</p>
+    </footer>
+</html>
