@@ -5,7 +5,7 @@ from flask import (
 )
 from werkzeug.security import check_password_hash, generate_password_hash
 
-# from database import get_database
+from database import Database
 
 bp = Blueprint('auth', __name__, url_prefix='/auth')
 
@@ -14,9 +14,6 @@ def register():
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
-        # TODO: database
-        # db = get_database()
-        db = None
         error = None
 
         if not username:
@@ -25,16 +22,16 @@ def register():
             error = 'Password is required.'
 
         if error is None:
-            try:
-                db.execute(
-                    "INSERT INTO user (username, password) VALUES (?, ?)",
-                    (username, generate_password_hash(password)),
-                )
-                db.commit()
-            except db.IntegrityError:
-                error = f"User {username} is already registered."
-            else:
+            db = Database()
+            print("Checking username {u}".format(u=username))
+            print(db.check_user_exists(username))
+            if not db.check_user_exists(username):
+                db.register_user(username, password)
+                db.close()
                 return redirect(url_for("auth.login"))
+            else:
+                error = f"User {username} is already registered."
+            db.close()
 
         flash(error)
 
@@ -43,4 +40,28 @@ def register():
 
 @bp.route('/login', methods=('GET', 'POST'))
 def login():
+    # if request.method == 'POST':
+    #     username = request.form['username']
+    #     password = request.form['password']
+    #     error = None
+    #
+    #     if not username:
+    #         error = 'Username is required.'
+    #     elif not password:
+    #         error = 'Password is required.'
+    #
+    #     if error is None:
+    #         db = Database()
+    #         print("Checking username {u}".format(u=username))
+    #         print(db.check_user_exists(username))
+    #         if not db.check_user_exists(username):
+    #             db.register_user(username, password)
+    #             db.close()
+    #             return redirect(url_for("auth.login"))
+    #         else:
+    #             error = f"User {username} is already registered."
+    #         db.close()
+    #
+    #     flash(error)
+    # return render_template('auth/register.html')
     pass

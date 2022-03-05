@@ -6,7 +6,7 @@ import re
 import mysql.connector
 from flask import Flask, render_template, request, flash, session, redirect, url_for
 from flask_session import Session
-from auth import bp
+import auth
 from bcrypt import hashpw, gensalt, checkpw
 # from database import get_event_name, create_request_row, \
 #     delete_request, create_pledge_row, create_donation_row, expire_request
@@ -18,38 +18,17 @@ SESSION_TYPE = 'filesystem'
 app.config.from_object(__name__)
 Session(app)
 
-# Create a file called login.txt in the same directory as whims, line1 = user line2 = password
-# login_file = open("../login.txt")
-# login_info = login_file.read().splitlines()  # This creates a list [user, password]
-
 # TODO
-#  2. 搞好注册功能
-#  3. 尝试基础登陆
-#  4. 实现个人网页(登录)
-
+#  [ ] 尝试基础登陆
+#  [ ] 设计个人网页
 
 # # 数据库设计
-
-# 注册的数据：
-# 账号名
-# 密码
-
-# 登录的数据：
-# 账号名
-# 密码
 
 # 聊天记录：
 # 账号1
 # 账号2
 # 时间
 # 内容
-
-mydb = mysql.connector.connect(
-    host="localhost",
-    user="root",
-    password="ygdvv1357",
-    database="WHIMS"
-)
 
 @app.route("/")
 def home():
@@ -87,9 +66,17 @@ def home():
 
 def main():
     """Defines main function to be used by automated testing"""
-    app.register_blueprint(bp)
+    app.register_blueprint(auth.bp)
+    app.add_url_rule("/", endpoint="index")
     app.run()
-    mydb.close()
+
+def test():
+    # from database import Database
+    # print("registering")
+    # print(check_user_exists("abd"))
+    # print(login("abd", "abd"))
+    # print("done")
+    pass
 
 if __name__ == '__main__':
     main()

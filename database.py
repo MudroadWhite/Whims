@@ -1,50 +1,57 @@
 import mysql.connector
 from bcrypt import checkpw, hashpw, gensalt
 
-db_username = ""
-db_passwd = ""
-db_dbname = ""
+db_username = "root"
+# TODO: read password & username from some txt
+db_passwd = "111111111"
+db_dbname = "whims"
 
-# TODO: make a class
-# TODO: (IMPORTANT) mydb.close()
-mydb = mysql.connector.connect(
-    host="localhost",
-    user=db_username,
-    password=db_passwd,
-    database=db_dbname
-)
+class Database:
+    def __init__(self):  # ok
+        # Create a file called login.txt in the same directory as whims, line1 = user line2 = password
+        # login_file = open("../login.txt")
+        # login_info = login_file.read().splitlines()  # This creates a list [user, password]
+        self.db = mysql.connector.connect(
+            host="localhost",
+            user=db_username,
+            password=db_passwd,
+            database=db_dbname
+        )
+        self.cursor = self.db.cursor(buffered=True)
 
-my_cursor = mydb.cursor(buffered=True)
+    def get_db(self):  # ok
+        return self.db
 
-def get_database():
-    return mydb
+    def database_init(self):  # ok
+        self.create_users_table()
 
+    def close(self):  # ok
+        self.db.close()
 
-def create_users_table():
-    """Creates an empty table called users that stores emails and passwords"""
-    my_cursor.execute("CREATE TABLE IF NOT EXISTS users ("
-                      "username VARCHAR(255), password VARCHAR(255)")
-    mydb.commit()
+    def create_users_table(self):  # ok
+        self.cursor.execute("CREATE TABLE IF NOT EXISTS whims.users ("
+                       "username VARCHAR(255), password VARCHAR(255))")
+        self.db.commit()
 
+    def register_user(self, name, passwd):  # ok
+        """Register a user and password into database"""
+        # TODO: unique check? or assume uniqueness?
+        query = "INSERT INTO users (username, password) VALUES (%s, %s)"
+        self.cursor.execute(query, (name, passwd))
+        self.db.commit()
 
-def register_user(name, passwd):
-    """Register a user and password into database"""
-    query = "INSERT INTO users (username, password) VALUES (%s, %s)"
-    my_cursor.execute(query, (name, passwd))
-    mydb.commit()
+    def check_user_exists(self, name):  # ok
+        """Check if a user already exists in the database"""
+        query = "SELECT * FROM users WHERE username = '{u}'".format(u=name)
+        self.cursor.execute(query)
+        self.db.commit()
+        count = len(self.cursor.fetchall())
+        return True if count > 0 else False
 
-
-def check_user_exists(name):
-    """Check if a user already exists in the database"""
-    query = "SELECT * FROM users WHERE username = '{u}'".format(u=name)
-    my_cursor.execute(query)
-    count = len(my_cursor.fetchall())
-    return True if count >= 0 else False
-
-
-def login(name, passwd):
-    """Check if a passwd matches the username in the database"""
-    query = "SELECT * FROM users WHERE username = '{u}' AND passwd = '{p}'".format(u=name, p=passwd)
-    my_cursor.execute(query)
-    count = len(my_cursor.fetchall())
-    return True if count >= 0 else False
+    def login(self, name, passwd):  # ok
+        """Check if a passwd matches the username in the database"""
+        query = "SELECT * FROM users WHERE username = '{u}' AND password = '{p}'".format(u=name, p=passwd)
+        self.cursor.execute(query)
+        self.db.commit()
+        count = len(self.cursor.fetchall())
+        return True if count >= 0 else False
