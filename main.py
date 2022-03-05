@@ -22,6 +22,8 @@ Session(app)
 #  [ ] Test 基础登陆
 #  [ ] 设计个人网页
 #  [ ] 弄懂template设计
+#  ----------------
+#  [ ] Client & Server? / 异步加载?
 
 # # 数据库设计
 
