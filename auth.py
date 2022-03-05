@@ -9,8 +9,9 @@ from database import Database
 
 bp = Blueprint('auth', __name__, url_prefix='/auth')
 
+
 @bp.route('/register', methods=('GET', 'POST'))
-def register():
+def register():  # ok
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
@@ -23,11 +24,10 @@ def register():
 
         if error is None:
             db = Database()
-            print("Checking username {u}".format(u=username))
-            print(db.check_user_exists(username))
             if not db.check_user_exists(username):
                 db.register_user(username, password)
                 db.close()
+                flash("Register successful")
                 return redirect(url_for("auth.login"))
             else:
                 error = f"User {username} is already registered."
@@ -40,28 +40,23 @@ def register():
 
 @bp.route('/login', methods=('GET', 'POST'))
 def login():
-    # if request.method == 'POST':
-    #     username = request.form['username']
-    #     password = request.form['password']
-    #     error = None
-    #
-    #     if not username:
-    #         error = 'Username is required.'
-    #     elif not password:
-    #         error = 'Password is required.'
-    #
-    #     if error is None:
-    #         db = Database()
-    #         print("Checking username {u}".format(u=username))
-    #         print(db.check_user_exists(username))
-    #         if not db.check_user_exists(username):
-    #             db.register_user(username, password)
-    #             db.close()
-    #             return redirect(url_for("auth.login"))
-    #         else:
-    #             error = f"User {username} is already registered."
-    #         db.close()
-    #
-    #     flash(error)
-    # return render_template('auth/register.html')
-    pass
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
+        error = None
+
+        if not username:
+            error = 'Username is required.'
+        elif not password:
+            error = 'Password is required.'
+
+        if error is None:
+            db = Database()
+            if login(username, password):
+                print("Login checked")
+                # TODO: render homepage
+            else:
+                error = "Login failed. Check your username or password."
+            db.close()
+        flash(error)
+    return render_template('auth/login.html')

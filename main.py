@@ -19,8 +19,9 @@ app.config.from_object(__name__)
 Session(app)
 
 # TODO
-#  [ ] 尝试基础登陆
+#  [ ] Test 基础登陆
 #  [ ] 设计个人网页
+#  [ ] 弄懂template设计
 
 # # 数据库设计
 
