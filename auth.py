@@ -33,7 +33,8 @@ def register():  # ok
                 error = f"User {username} is already registered."
             db.close()
 
-        flash(error)
+        if error is not None:
+            flash(error)
 
     return render_template('auth/register.html')
 
@@ -52,11 +53,12 @@ def login():
 
         if error is None:
             db = Database()
-            if login(username, password):
+            if db.login(username, password):
                 print("Login checked")
                 # TODO: render homepage
             else:
                 error = "Login failed. Check your username or password."
             db.close()
-        flash(error)
+        if error is not None:
+            flash(error)
     return render_template('auth/login.html')

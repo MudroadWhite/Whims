@@ -3,7 +3,7 @@ from bcrypt import checkpw, hashpw, gensalt
 
 db_username = "root"
 # TODO: read password & username from some txt
-db_passwd = "111111111"
+db_passwd = "ygdvv1357"
 db_dbname = "whims"
 
 class Database:

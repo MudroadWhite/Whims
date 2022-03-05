@@ -1,5 +1,6 @@
 import socket
 
+# https://pythonprogramming.net/sockets-tutorial-python-3/
 def server():
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     s.bind((socket.gethostname(), 1234))
@@ -11,3 +12,7 @@ def server():
         print(f"Connection from {address} has been established.")
         clientsocket.send(bytes("Hey there!!!","utf-8"))
         clientsocket.close()
+
+
+if __name__ == '__main__':
+    server()

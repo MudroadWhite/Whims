@@ -1,5 +1,6 @@
 import socket
 
+
 def client():
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     s.connect((socket.gethostname(), 1234))
@@ -14,3 +15,7 @@ def client():
 
         if len(full_msg) > 0:
             print(full_msg)
+
+
+if __name__ == '__main__':
+    client()
