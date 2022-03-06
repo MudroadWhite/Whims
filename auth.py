@@ -1,4 +1,4 @@
-# import functools
+import functools
 from flask import (
     Blueprint, flash, g, redirect, render_template, request, session, url_for
 )
@@ -52,8 +52,8 @@ def login():
         if error is None:
             db = Database()
             if db.login(username, password):
-                print("Login checked")
-                # TODO: g.user = user
+                session.clear()
+                session['user_id'] = username  # user['id']
                 return redirect(url_for("home.homepage"))
             else:
                 error = "Login failed. Check your username or password."
@@ -62,4 +62,35 @@ def login():
             flash(error)
     return render_template('auth/login.html')
 
-# TODO: login required
+
+def login_required(view):
+    @functools.wraps(view)
+    def wrapped_view(**kwargs):
+        if g.user is None:
+            error = "Required Login"
+            flash(error)
+            return redirect(url_for('auth.login'))
+
+        return view(**kwargs)
+
+    return wrapped_view
+
+@bp.before_app_request
+def load_logged_in_user():
+    user_id = session.get('user_id')
+
+    print("load_logged_in_user: {u}".format(u=user_id))
+
+    if user_id is None:
+        g.user = None
+    else:
+        g.user = user_id
+    # else:
+    #     g.user = get_db().execute(
+    #         'SELECT * FROM user WHERE id = ?', (user_id,)
+    #     ).fetchone()
+
+@bp.route('/logout')
+def logout():
+    session.clear()
+    return redirect(url_for('index'))
