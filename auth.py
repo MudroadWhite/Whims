@@ -1,5 +1,4 @@
-import functools
-
+# import functools
 from flask import (
     Blueprint, flash, g, redirect, render_template, request, session, url_for
 )
@@ -55,10 +54,13 @@ def login():
             db = Database()
             if db.login(username, password):
                 print("Login checked")
-                # TODO: render homepage
+                # TODO: g.user = user
+                return redirect(url_for("home.homepage"))
             else:
                 error = "Login failed. Check your username or password."
             db.close()
         if error is not None:
             flash(error)
     return render_template('auth/login.html')
+
+# TODO: login required

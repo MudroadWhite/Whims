@@ -6,7 +6,7 @@ import re
 import mysql.connector
 from flask import Flask, render_template, request, flash, session, redirect, url_for
 from flask_session import Session
-import auth
+import auth, blog, home
 from bcrypt import hashpw, gensalt, checkpw
 # from database import get_event_name, create_request_row, \
 #     delete_request, create_pledge_row, create_donation_row, expire_request
@@ -19,9 +19,11 @@ app.config.from_object(__name__)
 Session(app)
 
 # TODO
-#  [ ] Test 基础登陆
-#  [ ] 设计个人网页
-#  [ ] 弄懂template设计
+#  [ ] login required
+#  [ ] 实现基础的blog功能
+#  ----------------
+#  [ ] 设计主页功能
+#  [ ] 设计base、登录/注册页面
 #  ----------------
 #  [ ] Client & Server? / 异步加载?
 
@@ -34,7 +36,7 @@ Session(app)
 # 内容
 
 @app.route("/")
-def home():
+def index():
     """显示首页"""
     return render_template("index.html")
 
@@ -70,6 +72,7 @@ def home():
 def main():
     """Defines main function to be used by automated testing"""
     app.register_blueprint(auth.bp)
+    app.register_blueprint(home.bp)
     app.add_url_rule("/", endpoint="index")
     app.run()
 
