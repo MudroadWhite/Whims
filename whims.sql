@@ -1,5 +1,17 @@
 SELECT * FROM whims.users;
 
 SET SQL_SAFE_UPDATES=0;
-DELETE FROM whims.users WHERE (username='123' AND password='123');
+DELETE FROM whims.users WHERE (username='11111');
 SET SQL_SAFE_UPDATES=1;
+
+DROP TABLE whims.users;
+
+CREATE TABLE IF NOT EXISTS whims.users (
+id INTEGER PRIMARY KEY AUTO_INCREMENT, 
+username VARCHAR(255), password VARCHAR(255));
+
+CREATE TABLE IF NOT EXISTS whims.blog (
+id INTEGER PRIMARY KEY AUTO_INCREMENT, 
+author_id INTEGER NOT NULL, 
+title TEXT, body TEXT NOT NULL,
+FOREIGN KEY (author_id) REFERENCES whims.user (id));

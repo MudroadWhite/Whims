@@ -8,7 +8,6 @@ from database import Database
 
 bp = Blueprint('auth', __name__, url_prefix='/auth')
 
-
 @bp.route('/register', methods=('GET', 'POST'))
 def register():  # ok
     if request.method == 'POST':

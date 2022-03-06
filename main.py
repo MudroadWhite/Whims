@@ -6,7 +6,7 @@ import re
 import mysql.connector
 from flask import Flask, render_template, request, flash, session, redirect, url_for
 from flask_session import Session
-import auth, blog, home
+import auth, blog, home, database
 from bcrypt import hashpw, gensalt, checkpw
 # from database import get_event_name, create_request_row, \
 #     delete_request, create_pledge_row, create_donation_row, expire_request
@@ -20,7 +20,7 @@ Session(app)
 
 # TODO
 #  [ ] login required
-#  [ ] 实现基础的blog功能
+#  [ ] *** 实现基础的blog功能
 #  ----------------
 #  [ ] 设计主页功能
 #  [ ] 设计base、登录/注册页面
@@ -71,6 +71,9 @@ def index():
 
 def main():
     """Defines main function to be used by automated testing"""
+    db = database.Database()
+    db.database_init()
+    db.close()
     app.register_blueprint(auth.bp)
     app.register_blueprint(home.bp)
     app.add_url_rule("/", endpoint="index")

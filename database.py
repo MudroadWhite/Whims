@@ -24,13 +24,14 @@ class Database:
 
     def database_init(self):  # ok
         self.create_users_table()
+        self.create_blog_table()
 
     def close(self):  # ok
         self.db.close()
 
     def create_users_table(self):  # ok
         self.cursor.execute("CREATE TABLE IF NOT EXISTS whims.users ("
-                       "username VARCHAR(255), password VARCHAR(255))")
+                       "id INTEGER PRIMARY KEY AUTO_INCREMENT, username VARCHAR(255), password VARCHAR(255))")
         self.db.commit()
 
     def register_user(self, name, passwd):  # ok
@@ -55,3 +56,9 @@ class Database:
         self.db.commit()
         count = len(self.cursor.fetchall())
         return True if count >= 0 else False
+
+    def create_blog_table(self):
+        self.cursor.execute("CREATE TABLE IF NOT EXISTS whims.blog ("
+                       "id INTEGER PRIMARY KEY AUTO_INCREMENT, author_id INTEGER NOT NULL, title TEXT, body TEXT NOT NULL,"
+                       "FOREIGN KEY (author_id) REFERENCES whims.users (id))")
+        self.db.commit()
