@@ -85,7 +85,9 @@ def test():
     # print(check_user_exists("abd"))
     # print(login("abd", "abd"))
     # print("done")
+    # db = Database()
     pass
+
 
 if __name__ == '__main__':
     # test()

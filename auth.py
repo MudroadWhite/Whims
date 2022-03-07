@@ -53,7 +53,7 @@ def login():
             db = Database()
             if db.login(username, password):
                 session.clear()
-                session['user_id'] = username  # user['id']
+                session['user_id'] = db.get_user_id_from_name(username)  # user['id']
                 return redirect(url_for("home.homepage"))
             else:
                 error = "Login failed. Check your username or password."
@@ -77,10 +77,8 @@ def login_required(view):
 
 @bp.before_app_request
 def load_logged_in_user():
+    # db = Database()
     user_id = session.get('user_id')
-
-    print("load_logged_in_user: {u}".format(u=user_id))
-
     if user_id is None:
         g.user = None
     else:

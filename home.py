@@ -18,5 +18,8 @@ bp = Blueprint('home', __name__, url_prefix='/home')
 def homepage():
     # TODO: if logged in return homepage else return index
     # return render_template("home/home.html")
-    return redirect(url_for('blog.index'))
+    if g.user is None:
+        return render_template("index.html")
+    else:
+        return redirect(url_for('blog.index'))
     pass

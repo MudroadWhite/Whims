@@ -17,7 +17,7 @@ class Database:
             password=db_passwd,
             database=db_dbname
         )
-        self.cursor = self.db.cursor(buffered=True)
+        self.cursor = self.db.cursor(buffered=True, dictionary=True)
 
     def get_db(self):  # ok
         return self.db
@@ -49,9 +49,19 @@ class Database:
         count = len(self.cursor.fetchall())
         return True if count > 0 else False
 
-    # TODO
-    def get_user_id(self, name):
-        pass
+    def get_user_id_from_name(self, name):
+        query = "SELECT * FROM users WHERE username = %s"
+        self.cursor.execute(query, (name,))
+        self.db.commit()
+        result = self.cursor.fetchone()
+        return result['id']
+
+    def get_name_from_id(self, id):
+        query = "SELECT * FROM users WHERE id = {i}".format(i=id)
+        self.cursor.execute(query)
+        self.db.commit()
+        result = self.cursor.fetchone()
+        return result['username']
 
     def login(self, name, passwd):  # ok
         """Check if a passwd matches the username in the database"""
@@ -78,3 +88,5 @@ class Database:
         query = "SELECT title, body FROM whims.blog WHERE author_id = {s}".format(s=au_id)
         self.cursor.execute(query)
         self.db.commit()
+        result = self.cursor.fetchall()
+        return result
