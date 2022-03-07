@@ -49,6 +49,10 @@ class Database:
         count = len(self.cursor.fetchall())
         return True if count > 0 else False
 
+    # TODO
+    def get_user_id(self, name):
+        pass
+
     def login(self, name, passwd):  # ok
         """Check if a passwd matches the username in the database"""
         query = "SELECT * FROM users WHERE username = '{u}' AND password = '{p}'".format(u=name, p=passwd)
@@ -61,4 +65,16 @@ class Database:
         self.cursor.execute("CREATE TABLE IF NOT EXISTS whims.blog ("
                        "id INTEGER PRIMARY KEY AUTO_INCREMENT, author_id INTEGER NOT NULL, title TEXT, body TEXT NOT NULL,"
                        "FOREIGN KEY (author_id) REFERENCES whims.users (id))")
+        self.db.commit()
+
+    def create_blog(self, title, body, author_id):
+        query = "INSERT INTO whims.blog (title, body, author_id)"\
+                "VALUES (%s, %s, {i})".format(i=author_id)
+        self.cursor.execute(query, (title, body))
+        self.db.commit()
+
+    def get_blog(self, au_id):
+        # select ... from whims, user where ....
+        query = "SELECT title, body FROM whims.blog WHERE author_id = {s}".format(s=au_id)
+        self.cursor.execute(query)
         self.db.commit()
