@@ -13,6 +13,9 @@ bp = Blueprint('blog', __name__, url_prefix='/blog')  # ??
 #  - time
 #  - (future) likes? reposts? comments?
 
+# TODO: (IMPORTANT)
+#   - Change blog template from text to buttons or DAW design
+
 @bp.route('/')
 @login_required
 def index():
@@ -48,7 +51,7 @@ def create():
 
     return render_template('blog/create.html')
 
-# TODO: to be updated
+# TODO: to be tested
 @bp.route('/update', methods=('GET', 'POST'))
 @login_required
 def update():

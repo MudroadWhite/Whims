@@ -6,6 +6,10 @@ db_username = "root"
 db_passwd = "ygdvv1357"
 db_dbname = "whims"
 
+# TODO:
+#  [ ] Add blog_id in whims.blog entry
+#  [ ] Record publish timestamp for blog posts
+
 class Database:
     def __init__(self):  # ok
         # Create a file called login.txt in the same directory as whims, line1 = user line2 = password
@@ -102,7 +106,3 @@ class Database:
         query = "DELETE FROM whims.blog WHERE title=%s, author_id={i}".format(i=author_id)
         self.cursor.execute(query, title)
         self.db.commit()
-
-# TODO:
-#  [ ] delete post
-#  [ ] template design
