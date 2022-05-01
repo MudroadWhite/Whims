@@ -21,6 +21,9 @@ Session(app)
 # TODO
 #  [ ] (BOTTLENECK) add author_id to *posts* entries
 #  [ ] (BOTTLENECK) design basic buttons to record & submit music form
+#       https://www.w3schools.com/js/js_validation.asp
+#       https://www.w3schools.com/html/html_forms.asp
+#  [ ] Delete blog
 #  ----------------
 #  [ ] login required
 #  ----------------
