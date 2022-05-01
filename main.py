@@ -23,8 +23,6 @@ Session(app)
 #  [ ] (BOTTLENECK) design basic buttons to record & submit music form
 #  ----------------
 #  [ ] login required
-#  [ ] *** 实现基础的blog功能
-#  [ ] 博文更新
 #  ----------------
 #  [x] 设计主页功能
 #  [ ] 设计base、登录/注册页面
