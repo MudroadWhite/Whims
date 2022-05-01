@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}Chat with *Username*{% endblock %}</h1>
+  {% if g.user %}
+    <div id="message-container">
+
+    </div>
+    <form class="chat" id="chat-form" method=""post>
+        <label for="body">*Username*:</label>
+        <textarea name="chat" id="chat-content"></textarea>
+        <input type="submit" value="Submit">
+    </form>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.3/socket.io.min.js"></script>
+    <script type="text/javascript">
+      var socket = io.connect('http://' + document.domain + ':' + location.port);
+
+      function submit_form(e){
+          e.preventDefault()
+          let user_name = $( 'input.username' ).val()
+          let user_input = $( 'input.message' ).val()
+          socket.emit( 'send chat', {
+            user_name : user_name,
+            message : user_input
+          } )
+          $( 'input.message' ).val( '' ).focus()
+      }
+      // TODO: change 'form' to id-based
+      $('form').on('submit', submit_form)
+
+      function socket_response(msg){
+        let entry = '<div><b style="color: #000">'+msg.user_name+'</b> '+msg.message+'</div>'
+        $( 'div.message_holder' ).append(entry)
+      }
+      socket.on('response chat', socket_response)
+
+      // function template_funccall(socket, msg){
+      //     socket.emit('template event', {data: 'Template Data})
+      // }
+      // socket.on( 'template', template_funccall)
+    </script>
+  {% endif %}
+{% endblock %}
+
+{% block content %}
+{% endblock %}

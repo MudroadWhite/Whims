@@ -1,11 +1,7 @@
 from flask_socketio import SocketIO
+from main import app
 
-# ordinary flask configurations....
-app = None
 socketio = SocketIO(app)
-
-
-
 
 ########################
 
