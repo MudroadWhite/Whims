@@ -77,7 +77,7 @@ def index():
 #     return render_template("index.html")
 
 def main():
-    """Defines main function to be used by automated testing"""
+    """Defines main function"""
     db = database.Database()
     db.database_init()
     db.close()
