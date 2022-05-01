@@ -1,11 +1,13 @@
 # Press Shift+F10 to execute it or replace it with your code.
 # Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
 
+# Dependency: Flask, Mysql, Flask-SocketIO
 
 import re
 import mysql.connector
 from flask import Flask, render_template, request, flash, session, redirect, url_for, g
 from flask_session import Session
+# from flask_socketio import SocketIO
 import auth, blog, home, database
 from bcrypt import hashpw, gensalt, checkpw
 # from database import get_event_name, create_request_row, \
@@ -83,7 +85,11 @@ def main():
     app.register_blueprint(home.bp)
     app.register_blueprint(blog.bp)
     app.add_url_rule("/", endpoint="index")
+
+    # TODO: socketIO register blue print??(Deprecated)
     app.run()
+    # socketio = SocketIO(app)
+    # socketio.run()
 
 
 if __name__ == '__main__':
