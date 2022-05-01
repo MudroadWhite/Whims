@@ -75,13 +75,18 @@ def update(id):
             flash(error)
         else:
             db = Database()
-            db.update_post(title, body, g.user)
+            db.update_post(title, body, id)
             db.close()
             return redirect(url_for('blog.index'))
 
     return render_template('blog/update.html', post=post)
 
-@bp.route('/<int:id>/update', methods=('GET', 'POST'))
+@bp.route('/<int:id>/delete', methods=('POST','GET'))
 @login_required
 def delete(id):
-    pass
+    db = Database()
+    post = db.get_post(id)
+    if post != [] and post:  # Check if post exists
+        db.delete_post(id)
+    db.close()
+    return redirect(url_for('blog.index'))

@@ -113,7 +113,7 @@ class Database:
         self.db.commit()
 
     # TODO: to be tested
-    def delete_post(self, title, body, author_id):
-        query = "DELETE FROM whims.blog WHERE title=%s, author_id={i}".format(i=author_id)
-        self.cursor.execute(query, title)
+    def delete_post(self, blog_id):
+        query = "DELETE FROM whims.blog WHERE id={i}".format(i=blog_id)
+        self.cursor.execute(query)
         self.db.commit()
