@@ -16,6 +16,9 @@
     <script type="text/javascript">
       var socket = io.connect('http://' + document.domain + ':' + location.port);
 
+      // TODO: socket emit connected
+      socket.on( 'connect', function(???))
+
       function submit_form(e){
           e.preventDefault()
           let user_name = $( 'input.username' ).val()
