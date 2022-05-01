@@ -91,7 +91,18 @@ class Database:
         result = self.cursor.fetchall()
         return result
 
-    def get_post(self, post_id):
-        pass
+    # TODO: to be tested
+    def update_post(self, title, body, author_id):
+        query = "UPDATE whims.blog SET title=%s, body=%s WHERE author_id={i}".format(i=author_id)
+        self.cursor.execute(query, (title, body))
+        self.db.commit()
 
-    # TODO: update, delete post; template design
+    # TODO: to be tested
+    def delete_post(self, title, body, author_id):
+        query = "DELETE FROM whims.blog WHERE title=%s, author_id={i}".format(i=author_id)
+        self.cursor.execute(query, title)
+        self.db.commit()
+
+# TODO:
+#  [ ] delete post
+#  [ ] template design

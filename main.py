@@ -19,10 +19,13 @@ app.config.from_object(__name__)
 Session(app)
 
 # TODO
+#  [ ] (BOTTLENECK) add author_id to *posts* entries
+#  ----------------
 #  [ ] login required
 #  [ ] *** 实现基础的blog功能
+#  [ ] 博文更新
 #  ----------------
-#  [ ] 设计主页功能
+#  [x] 设计主页功能
 #  [ ] 设计base、登录/注册页面
 #  ----------------
 #  [ ] Client & Server? / 异步加载?

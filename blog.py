@@ -8,7 +8,11 @@ from database import Database
 
 bp = Blueprint('blog', __name__, url_prefix='/blog')  # ??
 
-# TODO: database
+# TODO: Add entries to database & `posts` variable:
+#  - author id
+#  - time
+#  - (future) likes? reposts? comments?
+
 @bp.route('/')
 @login_required
 def index():
@@ -40,7 +44,6 @@ def create():
             db = Database()
             db.create_post(title, body, g.user)
             db.close()
-            print("blog.index")
             return redirect(url_for('blog.index'))
 
     return render_template('blog/create.html')
@@ -49,4 +52,19 @@ def create():
 @bp.route('/update', methods=('GET', 'POST'))
 @login_required
 def update():
+    if request.method == 'POST':
+        title = request.form['title']
+        body = request.form['body']
+        error = None
+
+        if not title:
+            error = 'Title is required.'
+
+        if error is not None:
+            flash(error)
+        else:
+            db = Database()
+            db.update_post(title, body, g.user)
+            db.close()
+            return redirect(url_for('blog.index'))
     return render_template('blog/update.html')
