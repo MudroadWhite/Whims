@@ -20,6 +20,7 @@ Session(app)
 
 # TODO
 #  [ ] (BOTTLENECK) add author_id to *posts* entries
+#  [ ] (BOTTLENECK) design basic buttons to record & submit music form
 #  ----------------
 #  [ ] login required
 #  [ ] *** 实现基础的blog功能
