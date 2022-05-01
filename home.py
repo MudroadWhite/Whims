@@ -8,14 +8,20 @@ from database import Database
 
 from auth import login_required
 
+# TODO: home to be prefixed with username
 bp = Blueprint('home', __name__, url_prefix='/home')
 
 # TODO: require login
 # TODO: home functionalities
+#   1. Blog homepage
+#   2. Chatroom homepage
+#   3. Discover homepage
+#   4. Settings
+#   5. Log out(?)
 
 
 @bp.route('/')
-# @login_required
+@login_required
 def homepage():
     if g.user is None or g.username is None:
         session.clear()
@@ -24,5 +30,3 @@ def homepage():
     else:
         print("Homepage")
         return render_template("home/home.html")
-        # return redirect(url_for('blog.index'))
-        # return render_template('blog/index.html')
