@@ -21,9 +21,9 @@ app.config.from_object(__name__)
 Session(app)
 
 # NOTE
-#  已经覆盖Flask的基础教程！完善了Blog的功能！接下来需要做的两个大方向：
-#  1. 设计button的template
-#  2. 寻找用flask做chat app的教程
+#  已经覆盖Flask的基础教程！完善了Blog的功能！接下来需要做的大方向：
+#  [ ] 设计button的template
+#  [x] 寻找用flask做chat app的教程
 
 # TODO
 #  [ ] (BOTTLENECK) design basic buttons to record & submit music form
@@ -86,10 +86,8 @@ def main():
     app.register_blueprint(blog.bp)
     app.add_url_rule("/", endpoint="index")
 
-    # TODO: socketIO register blue print??(Deprecated)
+    # (Deprecated)TODO: socketIO register blue print??
     app.run()
-    # socketio = SocketIO(app)
-    # socketio.run()
 
 
 if __name__ == '__main__':

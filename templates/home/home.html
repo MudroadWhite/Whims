@@ -3,9 +3,14 @@
 {% block header %}
   <h1> Dashboard </h1>
   {% if g.user %}
+    <div id="username" class="unimplemented"></div>
+    <div id="bio" class="unimplemented">Bio</div>
   {% endif %}
 {% endblock %}
 
 {% block content %}
-  <a class="blog-homepage" href="{{ url_for('blog.index') }}"> Blog Homepage</a>
+  <a id="blog" href="{{ url_for('blog.index') }}"> Blog </a>
+  <a id="contacts" href="{{ url_for('chat.index') }}"> Contacts </a>
+  <a id="discovery" class="unimplemented"></a>
+  <a id="settings" class="unimplemented"></a>
 {% endblock %}
