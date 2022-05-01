@@ -51,10 +51,13 @@ def create():
 
     return render_template('blog/create.html')
 
-# TODO: to be tested
-@bp.route('/update', methods=('GET', 'POST'))
+# TODO:
+#  [ ] (BOTTLENECK) Design update.html: autofill blog content
+#  [x] Handle author_id issue when rendering template
+#  [ ] (Future) Move most logic into frontend side in the future
+@bp.route('/<int:id>/update', methods=('GET', 'POST'))
 @login_required
-def update():
+def update(id):
     if request.method == 'POST':
         title = request.form['title']
         body = request.form['body']
@@ -70,4 +73,8 @@ def update():
             db.update_post(title, body, g.user)
             db.close()
             return redirect(url_for('blog.index'))
-    return render_template('blog/update.html')
+
+    db = Database()
+    post = db.get_post(id)
+    db.close()
+    return render_template('blog/update.html', post=post)

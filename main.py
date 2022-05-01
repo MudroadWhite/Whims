@@ -19,7 +19,7 @@ app.config.from_object(__name__)
 Session(app)
 
 # TODO
-#  [ ] (BOTTLENECK) add author_id to *posts* entries
+#  [ ] (BOTTLENECK) Update blog
 #  [ ] (BOTTLENECK) design basic buttons to record & submit music form
 #       https://www.w3schools.com/js/js_validation.asp
 #       https://www.w3schools.com/html/html_forms.asp

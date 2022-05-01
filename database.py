@@ -87,21 +87,28 @@ class Database:
         self.cursor.execute(query, (title, body))
         self.db.commit()
 
+    # TODO: (Future) async, start_from+range
     def get_all_posts(self, au_id):  # ok
-        query = "SELECT b.title, b.body, u.username " \
+        query = "SELECT b.title, b.body, u.username, b.id " \
                 "FROM whims.blog AS b, whims.users as u " \
                 "WHERE b.author_id = u.id AND u.id = {s}".format(s=au_id)
         self.cursor.execute(query)
         self.db.commit()
         result = self.cursor.fetchall()
-        print(result)
+        # print(result)
         return result
 
-    # def get_posts(self, au_id, starts_with): # Async loading
+    def get_post(self, blog_id): # temporal update post.... reuse client data in the future
+        query = "SELECT title, body FROM whims.blog WHERE id={s}".format(s=blog_id)
+        self.cursor.execute(query)
+        self.db.commit()
+        result = self.cursor.fetchall()
+        return result
 
-    # TODO: to be tested
-    def update_post(self, title, body, author_id):
-        query = "UPDATE whims.blog SET title=%s, body=%s WHERE author_id={i}".format(i=author_id)
+    # def get_posts(self, au_id, starts_with, range): # Async loading
+
+    def update_post(self, title, body, blog_id):  # ok
+        query = "UPDATE whims.blog SET title=%s, body=%s WHERE id={i}".format(i=blog_id)
         self.cursor.execute(query, (title, body))
         self.db.commit()
 
