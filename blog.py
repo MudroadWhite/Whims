@@ -58,6 +58,11 @@ def create():
 @bp.route('/<int:id>/update', methods=('GET', 'POST'))
 @login_required
 def update(id):
+
+    db = Database()
+    post = db.get_post(id)
+    db.close()
+
     if request.method == 'POST':
         title = request.form['title']
         body = request.form['body']
@@ -74,7 +79,9 @@ def update(id):
             db.close()
             return redirect(url_for('blog.index'))
 
-    db = Database()
-    post = db.get_post(id)
-    db.close()
     return render_template('blog/update.html', post=post)
+
+@bp.route('/<int:id>/update', methods=('GET', 'POST'))
+@login_required
+def delete(id):
+    pass
