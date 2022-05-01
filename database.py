@@ -38,7 +38,14 @@ class Database:
                        "id INTEGER PRIMARY KEY AUTO_INCREMENT, username VARCHAR(255), password VARCHAR(255))")
         self.db.commit()
 
-    def create_blog_table(self):
+    # TODO: to be tested
+    def create_contacts_table(self):
+        self.cursor.execute("CREATE TABLE IF NOT EXISTS whims.contacts ("
+         "id INTEGER PRIMARY KEY AUTO_INCREMENT, user1_id INTEGER NOT NULL, user2_id INTEGER NOT NULL,"
+         "FOREIGN KEY (user1_id) REFERENCES whims.users (id), FOREIGN KEY (user2_id) REFERENCES whims.users (id))")
+        self.db.commit()
+
+    def create_blog_table(self):  # ok
         self.cursor.execute("CREATE TABLE IF NOT EXISTS whims.blog ("
                        "id INTEGER PRIMARY KEY AUTO_INCREMENT, author_id INTEGER NOT NULL, title TEXT, body TEXT NOT NULL,"
                        "FOREIGN KEY (author_id) REFERENCES whims.users (id))")
