@@ -88,12 +88,13 @@ class Database:
         self.db.commit()
 
     def get_all_posts(self, au_id):  # ok
-        # select ... from whims, user where ....
-        query = "SELECT title, body FROM whims.blog WHERE author_id = {s}".format(s=au_id)
-        # query = "SELECT title, body, author_id FROM whims.blog WHERE author_id = {s}".format(s=au_id)
+        query = "SELECT b.title, b.body, u.username " \
+                "FROM whims.blog AS b, whims.users as u " \
+                "WHERE b.author_id = u.id AND u.id = {s}".format(s=au_id)
         self.cursor.execute(query)
         self.db.commit()
         result = self.cursor.fetchall()
+        print(result)
         return result
 
     # def get_posts(self, au_id, starts_with): # Async loading
