@@ -19,26 +19,18 @@ app.config.from_object(__name__)
 Session(app)
 
 # TODO
-#  [ ] (BOTTLENECK) Update blog
 #  [ ] (BOTTLENECK) design basic buttons to record & submit music form
 #       https://www.w3schools.com/js/js_validation.asp
 #       https://www.w3schools.com/html/html_forms.asp
-#  [ ] Delete blog
 #  ----------------
-#  [ ] login required
-#  ----------------
-#  [x] 设计主页功能
+#  [x] 完善主页功能
 #  [ ] 设计base、登录/注册页面
 #  ----------------
-#  [ ] Client & Server? / 异步加载?
+#  [ ] Client & Server? / 异步加载? / 更换框架？
 
 # # 数据库设计
 
-# 聊天记录：
-# 账号1
-# 账号2
-# 时间
-# 内容
+# Table chats(from_user, to_user, time, content)
 
 @app.route("/")
 def index():
