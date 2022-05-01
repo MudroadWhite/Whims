@@ -18,6 +18,11 @@ SESSION_TYPE = 'filesystem'
 app.config.from_object(__name__)
 Session(app)
 
+# NOTE
+#  已经覆盖Flask的基础教程！完善了Blog的功能！接下来需要做的两个大方向：
+#  1. 设计button的template
+#  2. 寻找用flask做chat app的教程
+
 # TODO
 #  [ ] (BOTTLENECK) design basic buttons to record & submit music form
 #       https://www.w3schools.com/js/js_validation.asp
@@ -79,15 +84,6 @@ def main():
     app.register_blueprint(blog.bp)
     app.add_url_rule("/", endpoint="index")
     app.run()
-
-def test():
-    # from database import Database
-    # print("registering")
-    # print(check_user_exists("abd"))
-    # print(login("abd", "abd"))
-    # print("done")
-    # db = Database()
-    pass
 
 
 if __name__ == '__main__':

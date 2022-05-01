@@ -1,13 +1,26 @@
-# Whims - You Communicate with Music
+# Whims - You Communicate with Melodies
+Whims is a social application of ideology, that restricts you only communicate with others by melodies. The ideal of Whims
+comes from Herman Hesse's *The Glass Bead Game*, which mentioned how music can be a language of soul and how will you feel
+when correctly listening to the music.
+
+Currently the developer is using Flask on Python + JS to develop the prototype of Whims, and is intended to transfer the application
+onto an advance framework in the future.
+
+-------
+
+# Whims - 仅用音乐沟通
 Whims是一个理念型社交App，仅通过音乐与他人建立联系、进行交流。Whims的理念是“音乐是沟通灵魂的语言”，可参考赫尔曼黑塞的《玻璃球游戏》，其中提及音乐作为一种沟通灵魂的语言，以及聆听正确的音乐的时候应当产生的体验。
 
 ## 进度 (Prototype)
+- [x] 设计登录/注册功能
+- [x] 设计blog CRUD功能
 - [ ] 设计基础按键功能
-- [ ] 设计基础的base、登录/注册页面
+- [ ] 设计基础的base、登录/注册页面（前端）
 - [ ] 设计个人主页
   - [ ] 添加Bio
-  - [ ] Bio CRUD 
+  - [ ] Bio CRUD
 - [ ] 设计chat页面
+- [ ] 设计discover页面
 
 
 ## 计划开发的功能
