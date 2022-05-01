@@ -4,7 +4,7 @@
 
 import re
 import mysql.connector
-from flask import Flask, render_template, request, flash, session, redirect, url_for
+from flask import Flask, render_template, request, flash, session, redirect, url_for, g
 from flask_session import Session
 import auth, blog, home, database
 from bcrypt import hashpw, gensalt, checkpw
@@ -38,7 +38,10 @@ Session(app)
 @app.route("/")
 def index():
     """显示首页"""
-    return render_template("index.html")
+    if g.user is not None:
+        return redirect(url_for("home.homepage"))
+    else:
+        return render_template("index.html")
 
 # @app.route('/showSignUp', methods=['POST'])
 # def get_sign_up():
@@ -76,6 +79,7 @@ def main():
     db.close()
     app.register_blueprint(auth.bp)
     app.register_blueprint(home.bp)
+    app.register_blueprint(blog.bp)
     app.add_url_rule("/", endpoint="index")
     app.run()
 

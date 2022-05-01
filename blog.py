@@ -4,22 +4,21 @@ from flask import (
 from werkzeug.exceptions import abort
 
 from auth import login_required
+from database import Database
 
-bp = Blueprint('blog', __name__)  # ??
+bp = Blueprint('blog', __name__, url_prefix='/blog')  # ??
 
 # TODO: blog & home difference
 # TODO: database
 @bp.route('/')
 @login_required
 def index():
-    # db = get_db()
-    posts = db.execute(
-        'SELECT p.id, title, body, created, author_id, username'
-        ' FROM post p JOIN user u ON p.author_id = u.id'
-        ' ORDER BY created DESC'
-    ).fetchall()
+    db = Database()
+    posts = db.get_all_posts(g.user)
+    print("Blog.index")
     return render_template('blog/index.html', posts=posts)
 
+# TODO: to be updated
 @bp.route('/create', methods=('GET', 'POST'))
 @login_required
 def create():
@@ -34,13 +33,15 @@ def create():
         if error is not None:
             flash(error)
         else:
-            # db = get_db()
-            db.execute(
-                'INSERT INTO post (title, body, author_id)'
-                ' VALUES (?, ?, ?)',
-                (title, body, g.user['id'])
-            )
-            db.commit()
+            db = Database()
+            db.create_post(title, body, g.user)
+            db.close()
             return redirect(url_for('blog.index'))
 
     return render_template('blog/create.html')
+
+# TODO: to be updated
+@bp.route('/update', methods=('GET', 'POST'))
+@login_required
+def update():
+    return render_template('blog/update.html')

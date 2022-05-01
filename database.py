@@ -77,16 +77,21 @@ class Database:
                        "FOREIGN KEY (author_id) REFERENCES whims.users (id))")
         self.db.commit()
 
-    def create_blog(self, title, body, author_id):
+    def create_post(self, title, body, author_id):
         query = "INSERT INTO whims.blog (title, body, author_id)"\
                 "VALUES (%s, %s, {i})".format(i=author_id)
         self.cursor.execute(query, (title, body))
         self.db.commit()
 
-    def get_blog(self, au_id):
+    def get_all_posts(self, au_id):
         # select ... from whims, user where ....
         query = "SELECT title, body FROM whims.blog WHERE author_id = {s}".format(s=au_id)
         self.cursor.execute(query)
         self.db.commit()
         result = self.cursor.fetchall()
         return result
+
+    def get_post(self, post_id):
+        pass
+
+    # TODO: update, delete post; template design

@@ -54,6 +54,7 @@ def login():
             if db.login(username, password):
                 session.clear()
                 session['user_id'] = db.get_user_id_from_name(username)  # user['id']
+                session['username'] = username
                 return redirect(url_for("home.homepage"))
             else:
                 error = "Login failed. Check your username or password."
@@ -69,24 +70,22 @@ def login_required(view):
         if g.user is None:
             error = "Required Login"
             flash(error)
+            print("g,user is None")
             return redirect(url_for('auth.login'))
-
         return view(**kwargs)
 
     return wrapped_view
 
 @bp.before_app_request
 def load_logged_in_user():
-    # db = Database()
     user_id = session.get('user_id')
+    username = session.get('username')
     if user_id is None:
         g.user = None
+        g.username = None
     else:
         g.user = user_id
-    # else:
-    #     g.user = get_db().execute(
-    #         'SELECT * FROM user WHERE id = ?', (user_id,)
-    #     ).fetchone()
+        g.username = username
 
 @bp.route('/logout')
 def logout():
