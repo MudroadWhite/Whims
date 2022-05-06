@@ -29,6 +29,7 @@ class Database:
     def database_init(self):  # ok
         self.create_users_table()
         self.create_blog_table()
+        self.create_contacts_table()
 
     def close(self):  # ok
         self.db.close()
@@ -38,8 +39,7 @@ class Database:
                        "id INTEGER PRIMARY KEY AUTO_INCREMENT, username VARCHAR(255), password VARCHAR(255))")
         self.db.commit()
 
-    # TODO: to be tested
-    def create_contacts_table(self):
+    def create_contacts_table(self):  # ok
         self.cursor.execute("CREATE TABLE IF NOT EXISTS whims.contacts ("
          "id INTEGER PRIMARY KEY AUTO_INCREMENT, user1_id INTEGER NOT NULL, user2_id INTEGER NOT NULL,"
          "FOREIGN KEY (user1_id) REFERENCES whims.users (id), FOREIGN KEY (user2_id) REFERENCES whims.users (id))")
@@ -128,9 +128,14 @@ class Database:
         self.cursor.execute(query)
         self.db.commit()
 
+    # TODO: to be tested
     def get_all_contacts(self, user_id):
-        query = ""
+        query = "SELECT user2_id FROM whims.contacts WHERE user1_id={i}".format(i=user_id)
         self.cursor.execute(query)
         self.db.commit()
         result = self.cursor.fetchall()
+        print(result)
         return result
+
+    def delete_contact(self, user_id):
+        pass

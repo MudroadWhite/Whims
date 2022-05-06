@@ -80,14 +80,15 @@ def main():
     """Defines main function"""
     db = database.Database()
     db.database_init()
+    db.create_contacts_table()
     db.close()
-    app.register_blueprint(auth.bp)
-    app.register_blueprint(home.bp)
-    app.register_blueprint(blog.bp)
-    app.add_url_rule("/", endpoint="index")
+    # app.register_blueprint(auth.bp)
+    # app.register_blueprint(home.bp)
+    # app.register_blueprint(blog.bp)
+    # app.add_url_rule("/", endpoint="index")
 
-    # (Deprecated)TODO: socketIO register blue print??
-    app.run()
+    # # (Deprecated)TODO: socketIO register blue print??
+    # app.run()
 
 
 if __name__ == '__main__':

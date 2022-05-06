@@ -15,6 +15,7 @@ bp = Blueprint('blog', __name__, url_prefix='/blog')  # ??
 
 # TODO: (IMPORTANT)
 #   - Change blog template from text to buttons or DAW design
+#   - Add date functionality
 
 @bp.route('/')
 @login_required
@@ -36,6 +37,9 @@ def create():
     if request.method == 'POST':
         title = request.form['title']
         body = request.form['body']
+        # TODO: add date time
+        date = None
+        time = None
         error = None
 
         if not title:
@@ -45,6 +49,7 @@ def create():
             flash(error)
         else:
             db = Database()
+            # TODO: add date time
             db.create_post(title, body, g.user)
             db.close()
             return redirect(url_for('blog.index'))
@@ -52,7 +57,6 @@ def create():
     return render_template('blog/create.html')
 
 # TODO:
-#  [ ] (BOTTLENECK) Design update.html: autofill blog content
 #  [x] Handle author_id issue when rendering template
 #  [ ] (Future) Move most logic into frontend side in the future
 @bp.route('/<int:id>/update', methods=('GET', 'POST'))

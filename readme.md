@@ -34,8 +34,8 @@ Whims是一个理念型社交App，仅通过音乐与他人建立联系、进行
 #### 快捷键（？）
 
 
-### Homepage
-Whims的每一个用户将拥有一个Homepage作为登陆后的初始界面。Homepage目前计划包含以下功能：
+### Dashboard
+Whims的每一个用户将拥有一个Dashboard作为登陆后的初始界面。Dashboard目前计划包含以下功能：
 #### Bio
 Bio、账户名字和Blog将是App中能够自由使用文字的全部地方。Bio可以附上个人简介，可以将自己引向外部链接。App剩余的部分仅能使用音乐作为交流方式。
 #### Settings
