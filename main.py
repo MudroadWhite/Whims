@@ -8,7 +8,7 @@ import mysql.connector
 from flask import Flask, render_template, request, flash, session, redirect, url_for, g
 from flask_session import Session
 # from flask_socketio import SocketIO
-import auth, blog, home, database
+import auth, blog, home, database, contact
 from bcrypt import hashpw, gensalt, checkpw
 # from database import get_event_name, create_request_row, \
 #     delete_request, create_pledge_row, create_donation_row, expire_request
@@ -86,6 +86,7 @@ def main():
     app.register_blueprint(auth.bp)
     app.register_blueprint(home.bp)
     app.register_blueprint(blog.bp)
+    app.register_blueprint(contact.bp)
     app.add_url_rule("/", endpoint="index")
 
     # # (Deprecated)TODO: socketIO register blue print??

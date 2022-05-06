@@ -6,8 +6,8 @@ from werkzeug.exceptions import abort
 from auth import login_required
 from database import Database
 
-bp = Blueprint('blog', __name__, url_prefix='/contact')  # ??
-
+bp = Blueprint('contact', __name__, url_prefix='/contact')  # ??
+# <a class="contact chat" href="{{ url_for('contact.chat', id=contact['id']) }}"> chat </a>
 @bp.route('/')
 @login_required
 def index():

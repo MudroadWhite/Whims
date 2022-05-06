@@ -128,13 +128,11 @@ class Database:
         self.cursor.execute(query)
         self.db.commit()
 
-    # TODO: to be tested
-    def get_all_contacts(self, user_id):
+    def get_all_contacts(self, user_id):  # ok
         query = "SELECT user2_id FROM whims.contacts WHERE user1_id={i}".format(i=user_id)
         self.cursor.execute(query)
         self.db.commit()
         result = self.cursor.fetchall()
-        print(result)
         return result
 
     def delete_contact(self, user1_id, user2_id):
