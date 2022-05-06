@@ -29,6 +29,8 @@ Session(app)
 #  [ ] (BOTTLENECK) design basic buttons to record & submit music form
 #       https://www.w3schools.com/js/js_validation.asp
 #       https://www.w3schools.com/html/html_forms.asp
+#  [ ] (BOTTLENECK)Test contacts main page
+#  [ ] Design basic layout for base.html
 #  ----------------
 #  [x] 完善主页功能
 #  [ ] 设计base、登录/注册页面
@@ -80,15 +82,14 @@ def main():
     """Defines main function"""
     db = database.Database()
     db.database_init()
-    db.create_contacts_table()
     db.close()
-    # app.register_blueprint(auth.bp)
-    # app.register_blueprint(home.bp)
-    # app.register_blueprint(blog.bp)
-    # app.add_url_rule("/", endpoint="index")
+    app.register_blueprint(auth.bp)
+    app.register_blueprint(home.bp)
+    app.register_blueprint(blog.bp)
+    app.add_url_rule("/", endpoint="index")
 
     # # (Deprecated)TODO: socketIO register blue print??
-    # app.run()
+    app.run()
 
 
 if __name__ == '__main__':

@@ -137,5 +137,5 @@ class Database:
         print(result)
         return result
 
-    def delete_contact(self, user_id):
+    def delete_contact(self, user1_id, user2_id):
         pass
