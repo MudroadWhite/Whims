@@ -28,7 +28,7 @@ from bcrypt import hashpw, gensalt, checkpw
 #  [ ] (BOTTLENECK) Design basic buttons to record & submit music form
 #       https://www.w3schools.com/js/js_validation.asp
 #       https://www.w3schools.com/html/html_forms.asp
-#  [ ] (BOTTLENECK) Add homepages for 3rd person viewing via contacts(view.py)
+#  [ ] (NEW FUNCTIONALITY)Add view module for 3rd person viewing. Supports homepage & blog viewing
 #  [x] Test contacts main page
 #  [ ] Implement chat for contacts
 #  [ ] *Back button* for most pages

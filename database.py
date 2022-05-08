@@ -7,7 +7,6 @@ db_passwd = "ygdvv1357"
 db_dbname = "whims"
 
 # TODO:
-#  [ ] Add blog_id in whims.blog entry
 #  [ ] Record publish timestamp for blog posts
 
 class Database:
@@ -106,7 +105,6 @@ class Database:
         self.cursor.execute(query)
         self.db.commit()
         result = self.cursor.fetchall()
-        # print(result)
         return result
 
     def get_post(self, blog_id): # temporal update post.... reuse client data in the future
