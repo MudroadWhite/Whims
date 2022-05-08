@@ -27,16 +27,15 @@ from bcrypt import hashpw, gensalt, checkpw
 #  [ ] (BOTTLENECK) Design basic buttons to record & submit music form
 #       https://www.w3schools.com/js/js_validation.asp
 #       https://www.w3schools.com/html/html_forms.asp
-#  [ ] (BOTTLENECK) Add homepages for 3rd person viewing via contacts
-#  [ ] (BOTTLENECK) Implement chat for contacts; Wire socketio to mainapp
+#  [ ] (BOTTLENECK) Add homepages for 3rd person viewing via contacts(view.py)
 #  [x] Test contacts main page
+#  [ ] Implement chat for contacts
 #  [ ] *Back button* for most pages
 #  ----------------
 #  [x] Design basic layout for base.html
 #  [x] 完善主页功能
 #  [ ] 设计base、登录/注册页面
 #  ----------------
-#  [ ] Client & Server? / 异步加载? / 更换框架？
 
 # # 数据库设计
 
