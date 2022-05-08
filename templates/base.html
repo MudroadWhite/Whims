@@ -2,20 +2,6 @@
 <title>{% block title %}{% endblock %} - Whims</title>
 <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 <div class="header">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.3/socket.io.min.js"></script>
-  <script type="text/javascript">
-      var socket = io.connect('http://' + document.domain + ':' + location.port);
-      function testsocket(){
-        socket.emit('test socket event');
-        console.log("Socket Emit Sent");
-      }
-      // function template_funccall(socket, msg){
-      //     socket.emit('template event', {data: 'Template Data})
-      // }
-      // socket.on( 'template', template_funccall)
-  </script>
-  <button onclick="testsocket()">Test Button</button>
   <h1><a href="{{ url_for('index') }}">Whims</a></h1>
     {% if g.user %}
       {{ g.username }} <a href="{{ url_for('auth.logout') }}">(Log Out)</a>

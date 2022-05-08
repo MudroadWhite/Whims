@@ -1,53 +1,48 @@
 from flask_socketio import SocketIO
 from app import socketio
 
-print("events imported")
-
 @socketio.on('test socket event')
-def test_callback(methods=['GET', 'POST']):
-    print("Received test socket event! From different file")
+def test_callback(data):
+    print("Received test socket event! From separate file")
 
-def connect_callback(methods=['GET', 'POST']):
+def connect_callback(data):
     print('Template callback')
 
 @socketio.on('connect')
-def handle_connect(methods=['GET', 'POST']):
-    # print('template event: ' + str(json))
-    # socketio.emit('template response', json, callback=connect_callback)
-    pass
+def handle_connect(json):
+    print('template event: ' + str(json))
+    socketio.emit('template response', json, callback=connect_callback)
+    # pass
 
 
-def send_chat_callback(methods=['GET', 'POST']):
+def send_chat_callback(data):
     print('Template callback')
 
 
 @socketio.on('send chat')
-def handle_send_chat(methods=['GET', 'POST']):
-    # print('template event: ' + str(json))
-    # socketio.emit('template response', json, callback=send_chat_callback)
-    pass
+def handle_send_chat(json):
+    print('template event: ' + str(json))
+    socketio.emit('template response', json, callback=send_chat_callback)
 
 
-def response_chat_callback(methods=['GET', 'POST']):
+def response_chat_callback():
     print('Template callback')
 
 
 @socketio.on('response chat')
-def handle_response_chat(methods=['GET', 'POST']):
-    # print('template event: ' + str(json))
-    # socketio.emit('template response', json, callback=response_chat_callback)
-    pass
+def handle_response_chat(json):
+    print('template event: ' + str(json))
+    socketio.emit('template response', json, callback=response_chat_callback)
 
 
 ########################
 
-def templateCallback(methods=['GET', 'POST']):
+def templateCallback(json):
     print('Template callback')
 
 
 @socketio.on('my event')
-def handle_my_template_event(methods=['GET', 'POST']):
-    # print('template event: ' + str(json))
-    # socketio.emit('template response', json, callback=templateCallback)
-    pass
+def handle_my_template_event(json):
+    print('template event: ' + str(json))
+    socketio.emit('template response', json, callback=templateCallback)
 

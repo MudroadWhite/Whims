@@ -23,8 +23,7 @@ from bcrypt import hashpw, gensalt, checkpw
 #  Problem on contact database design: user1 & user2's contacts should be bidirectional
 
 # TODO
-#  [x] (FIRST BOTTLENECK) Test socketIO
-#  [ ]   Send json data to socketIO events
+#  [x] Add SocketIO
 #  [ ] (BOTTLENECK) Design basic buttons to record & submit music form
 #       https://www.w3schools.com/js/js_validation.asp
 #       https://www.w3schools.com/html/html_forms.asp
