@@ -8,13 +8,12 @@
 {% block content %}
   <div class="contact-container unimplemented">
   {% for contact in contacts %}
-    <a class="contact" > {{ contact['id'] }}</a>
-    <a class="contact chat" href=""> chat </a>
-    <a class="contact delete unimplemented"> </a>
+    <a class="contact view unimplemented" href="{{ url_for('home.view', uid=g.user) }}"> {{ contact['username'] }}</a>
+    <a class="contact chat unimplemented" href=""> Chat </a>
+    <a class="contact delete unimplemented"> Delete </a>
     {% if not loop.last %}
         <hr>
     {% endif %}
   {% endfor %}
   </div>
-
 {% endblock %}

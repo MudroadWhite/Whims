@@ -3,9 +3,7 @@
 {% block header %}
   <h1>{% block title %}Chatting with *Username*{% endblock %}</h1>
   {% if g.user %}
-    <div id="message-container">
-
-    </div>
+    <div id="message-container"></div>
     <form class="chat" id="chat-form" method=""post>
         <label for="body">*Username*:</label>
         <textarea name="chat" id="chat-content"></textarea>
@@ -17,7 +15,7 @@
       var socket = io.connect('http://' + document.domain + ':' + location.port);
 
       // TODO: socket emit connected
-      socket.on( 'connect', function(???))
+      // socket.on( 'connect', function(???))
 
       function submit_form(e){
           e.preventDefault()

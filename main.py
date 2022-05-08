@@ -1,24 +1,18 @@
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
-
 # Dependency: Flask, Mysql, Flask-SocketIO
 
 import re
 import mysql.connector
 from flask import Flask, render_template, request, flash, session, redirect, url_for, g
-from flask_session import Session
-# from flask_socketio import SocketIO
-import auth, blog, home, database, contact
+# from flask_session import Session
+from flask_socketio import SocketIO
+
+from app import app, socketio
+
+import auth, blog, home, database, contact, events
+# from events import socketio_init
 from bcrypt import hashpw, gensalt, checkpw
 # from database import get_event_name, create_request_row, \
 #     delete_request, create_pledge_row, create_donation_row, expire_request
-
-app = Flask(__name__, template_folder="templates")
-app.secret_key = "hfow875^&i3%3425tv9;2^$"
-
-SESSION_TYPE = 'filesystem'
-app.config.from_object(__name__)
-Session(app)
 
 # NOTE
 #  已经覆盖Flask的基础教程！完善了Blog的功能！接下来需要做的大方向：
@@ -26,12 +20,20 @@ Session(app)
 #  [x] 寻找用flask做chat app的教程
 
 # TODO
-#  [ ] (BOTTLENECK) design basic buttons to record & submit music form
+#  Problem on contact database design: user1 & user2's contacts should be bidirectional
+
+# TODO
+#  [x] (FIRST BOTTLENECK) Test socketIO
+#  [ ]   Send json data to socketIO events
+#  [ ] (BOTTLENECK) Design basic buttons to record & submit music form
 #       https://www.w3schools.com/js/js_validation.asp
 #       https://www.w3schools.com/html/html_forms.asp
-#  [ ] (BOTTLENECK)Test contacts main page
-#  [ ] Design basic layout for base.html
+#  [ ] (BOTTLENECK) Add homepages for 3rd person viewing via contacts
+#  [ ] (BOTTLENECK) Implement chat for contacts; Wire socketio to mainapp
+#  [x] Test contacts main page
+#  [ ] *Back button* for most pages
 #  ----------------
+#  [x] Design basic layout for base.html
 #  [x] 完善主页功能
 #  [ ] 设计base、登录/注册页面
 #  ----------------
@@ -49,34 +51,9 @@ def index():
     else:
         return render_template("index.html")
 
-# @app.route('/showSignUp', methods=['POST'])
-# def get_sign_up():
-#     username = request.form["username"]
-#     psw = request.form["psw"]
-#     conf_psw = request.form["conf_psw"].encode('utf-8')
-#     data = [username, psw, conf_psw]
-#
-#     if psw == conf_psw:
-#         # TODO: switch to database.py functions
-#         my_cursor = mydb.cursor(buffered=True)
-#         my_cursor.execute("SELECT * FROM Users WHERE username = '{}'".format(username))
-#         count = len(my_cursor.fetchall())
-#         if count == 0:
-#             # Account does not exist
-#             sql = "INSERT INTO users (username, psw) VALUES (%s, %s)"
-#             val = (username, hashpw(psw, gensalt(12)))
-#             my_cursor.execute(sql, val)
-#             mydb.commit()
-#             flash("注册成功")
-#             # TODO: 找个个人网页
-#             return render_template("index.html")
-#
-#         else:
-#             # Account does exist
-#             flash("账号已存在")
-#             return render_template("signUp.html")  # , data=data)
-#     flash("密码不相同")
-#     return render_template("index.html")
+# @socketio.on('test socket event')
+# def test_callback(methods=['GET', 'POST']):
+#     print("Received test socket event!")
 
 def main():
     """Defines main function"""
@@ -88,9 +65,11 @@ def main():
     app.register_blueprint(blog.bp)
     app.register_blueprint(contact.bp)
     app.add_url_rule("/", endpoint="index")
+    # app.run()
 
-    # # (Deprecated)TODO: socketIO register blue print??
-    app.run()
+    socketio.run(app)
+    # socketio_init(app)
+
 
 
 if __name__ == '__main__':
