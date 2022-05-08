@@ -1,4 +1,5 @@
 # Dependency: Flask, Mysql, Flask-SocketIO
+# TODO: IMPORTANT: Flask SocketIO being specified to old version
 
 import re
 import mysql.connector
@@ -39,7 +40,6 @@ from bcrypt import hashpw, gensalt, checkpw
 
 # # 数据库设计
 
-# Table chats(from_user, to_user, time, content)
 
 @app.route("/")
 def index():
@@ -63,11 +63,8 @@ def main():
     app.register_blueprint(blog.bp)
     app.register_blueprint(contact.bp)
     app.add_url_rule("/", endpoint="index")
-    # app.run()
 
     socketio.run(app)
-    # socketio_init(app)
-
 
 
 if __name__ == '__main__':

@@ -1,10 +1,6 @@
 from flask_socketio import SocketIO
 from app import socketio
 
-@socketio.on('test socket event')
-def test_callback(data):
-    print("Received test socket event! From separate file")
-
 def connect_callback(data):
     print('Template callback')
 
@@ -37,12 +33,14 @@ def handle_response_chat(json):
 
 ########################
 
+@socketio.on('test')
+def test_handle(data):
+    print("Received test socket event! Data:{s}".format(s=data))
+
 def templateCallback(json):
     print('Template callback')
-
 
 @socketio.on('my event')
 def handle_my_template_event(json):
     print('template event: ' + str(json))
     socketio.emit('template response', json, callback=templateCallback)
-
